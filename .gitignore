@@ -61,3 +61,4 @@ src/node_modules/*
 src/dist
 src/dist/*
 /src/excel/
+/src/src/configs/typeorm.config.ts

@@ -6,3 +6,10 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:3000/boards
+Content-Type: application/json
+
+{
+  "title": "test",
+  "description": "tasdfasdfzxcvaqer"
+}
