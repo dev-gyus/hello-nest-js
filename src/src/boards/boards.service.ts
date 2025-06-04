@@ -30,7 +30,7 @@ export class BoardsService {
     async getBoardBy(id: number): Promise<BoardDto> {
         const board = this.boards.find((board) => board.id === id)
         if (!board) {
-            throw new NotFoundException(`No board with id ${id}`)
+            throw new NotFoundException(`No board with id ${id} `)
         }
         return new BoardDto(board)
     }
