@@ -1,7 +1,7 @@
 import {BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import {BoardStatus} from "../boards/board.enum";
 
-@Entity()
+@Entity('board')
 export class Board extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number

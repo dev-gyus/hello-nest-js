@@ -1,17 +1,19 @@
 import {Injectable, NotFoundException} from '@nestjs/common';
 import {BoardStatus} from "./board.enum";
 import {BoardDto, CreateBoardDto} from "./dto/board.dto";
-import { InjectRepository } from "@nestjs/typeorm";
 import { Board } from "src/entity/Board";
 import {BoardRepository} from "./board.repository";
+import {DataSource} from "typeorm";
 
 @Injectable()
 export class BoardsService {
-    private boards: Board[] = []
+    boards: Board[] = [];
+    private boardRepository: BoardRepository;
 
     constructor(
-        private boardRepository: BoardRepository,
+        private dataSource: DataSource
     ) {
+        this.boardRepository = new BoardRepository(this.dataSource);
     }
 
     async getAllBoards(): Promise<BoardDto[]> {
@@ -28,11 +30,11 @@ export class BoardsService {
     }
 
     async getBoardBy(id: number): Promise<BoardDto> {
-        const board = this.boards.find((board) => board.id === id)
+        const board = await this.boardRepository.getBoardBy(id)
         if (!board) {
             throw new NotFoundException(`No board with id ${id} `)
         }
-        return new BoardDto(board)
+        return board
     }
 
     async deleteBoardBy(id: number): Promise<void> {
